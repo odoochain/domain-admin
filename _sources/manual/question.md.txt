@@ -117,6 +117,16 @@ DB_CONNECT_URL=postgresql://root:123456@localhost:5432/data_domain
 
 ## 10、支持`prometheus` 的`/metrics`接口
 
+请求地址：http://127.0.0.1:8000/metrics
+
+示例
+
+```
+POST http://127.0.0.1:8000/metrics
+Content-Type: application/json
+Authorization: Bearer <token>
+```
+
 1、第一步、需要在 `系统设置/API KEY` 获取授权key
 
 2、第二步、配置 prometheus.yml
@@ -126,7 +136,20 @@ scrape_configs:
     bearer_token: 'f60c03bfff8bb42dcf6821542e5fd11e'
 ```
 
-请求地址：http://127.0.0.1:8000/metrics
+如果是夜莺-Nightingale [参考文档](https://flashcat.cloud/docs/content/flashcat-monitor/categraf/plugin/prometheus/)
+
+```yaml
+[[instances.domain]]
+urls = [
+   "http://127.0.0.1:8000/metrics"
+]
+
+url_label_key = "instance"
+url_label_value = "{{.Host}}"
+headers = ["Authorization", "Bearer f60c03bfff8bb42dcf6821542e5fd11e"]
+```
+
+该配置由[@1275788667](https://github.com/1275788667) 提供
 
 返回数据示例：
 
@@ -139,10 +162,23 @@ domain_admin{domain="www.tmall.com"} 37.0
 domain_admin{domain="www.baidu.com"} 37.0
 domain_admin{domain="www.taobao.com"} 37.0
 ```
- 
+
+@since v1.5.27 升级为
+
+```
+# HELP domain_admin this is a domain admin data
+# TYPE domain_admin gauge 证书列表数据
+domain_admin{domain="www.baidu.com",group_name="百度系",root_domain="baidu.com"} 258.0
+domain_admin{domain="www.163.com",group_name="",root_domain="163.com"} 153.0
+# HELP domain_info this is a domain info data
+# TYPE domain_info gauge 域名列表数据
+domain_info{domain="163.com",group_name="百度系"} 1392.0
+domain_info{domain="qq.com",group_name=""} 3535.0
+```
+
 ## 11、部分域名无法查询到信息
  
-已知不支持的域名后缀：`.lc`、`.ml`、`.ai`、`.my`、`.ch`、`.edu.cn`
+已知不支持的域名后缀：`.lc`、`.ml`、`.ai`、`.my`、`.ch`、`.edu.cn`、`.name`
 
 ## 12、获取ingress的域名
 
@@ -275,6 +311,13 @@ $2b$12$c/tJvOYaWxzis4CXSyGN9ua4B7wzor8j9WrGsgV/2pdJnsrAMJxiK
 
 可以重置为：123456
 
+示例
+
+```sql
+# sqlite3
+sqlite> ATTACH DATABASE '/opt/domain-admin/database/database.db' AS mydatabase;
+sqlite> UPDATE tb_user SET password = "$2b$12$c/tJvOYaWxzis4CXSyGN9ua4B7wzor8j9WrGsgV/2pdJnsrAMJxiK" ;
+```
 
 ## 18、database is locked
 
@@ -289,3 +332,11 @@ $2b$12$c/tJvOYaWxzis4CXSyGN9ua4B7wzor8j9WrGsgV/2pdJnsrAMJxiK
 可以手动安装适合Python2.7 的依赖版本，也可以使用整理好的依赖文件
 
 [production-2.7.txt](https://github.com/mouday/domain-admin/blob/master/requirements/production-2.7.txt)
+
+## 20、grafana 的展示模版
+
+可参考群友 友志 提供的模板
+
+https://grafana.com/grafana/dashboards/14605-domain-exporter-for-prometheus/
+
+https://grafana.com/grafana/dashboards/13924-9116-domain/

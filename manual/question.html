@@ -1,23 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>常见问题 &mdash; Domain Admin latest 文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/translations.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=1f19b280"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
@@ -36,9 +35,6 @@
           <a href="../index.html" class="icon icon-home">
             Domain Admin
           </a>
-              <div class="version">
-                latest
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
@@ -61,15 +57,16 @@
 <li class="toctree-l2"><a class="reference internal" href="#id6">7、监控域名非443的端口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id7">8、修改数据库链接</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prometheus-metrics">10、支持<code class="docutils literal notranslate"><span class="pre">prometheus</span></code> 的<code class="docutils literal notranslate"><span class="pre">/metrics</span></code>接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">11、部分域名无法查询到信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">11、部分域名无法查询到信息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ingress">12、获取ingress的域名</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">13、证书监控原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">14、域名监控原理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">15、提示缺少依赖</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">16、主机地址显示错误</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">13、证书监控原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">14、域名监控原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">15、提示缺少依赖</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">16、主机地址显示错误</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#admin">17、忘记admin密码怎么办</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-is-locked">18、database is locked</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python2-7">19、Python2.7 依赖问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grafana">20、grafana 的展示模版</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">扩展插件</a></li>
@@ -208,13 +205,31 @@ sqlite&gt;<span class="w"> </span>.quit
 </section>
 <section id="prometheus-metrics">
 <h2>10、支持<code class="docutils literal notranslate"><span class="pre">prometheus</span></code> 的<code class="docutils literal notranslate"><span class="pre">/metrics</span></code>接口<a class="headerlink" href="#prometheus-metrics" title="此标题的永久链接"></a></h2>
+<p>请求地址：<a class="reference external" href="http://127.0.0.1:8000/metrics">http://127.0.0.1:8000/metrics</a></p>
+<p>示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">8000</span><span class="o">/</span><span class="n">metrics</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>
+<span class="n">Authorization</span><span class="p">:</span> <span class="n">Bearer</span> <span class="o">&lt;</span><span class="n">token</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p>1、第一步、需要在 <code class="docutils literal notranslate"><span class="pre">系统设置/API</span> <span class="pre">KEY</span></code> 获取授权key</p>
 <p>2、第二步、配置 prometheus.yml</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">scrape_configs</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">bearer_token</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;f60c03bfff8bb42dcf6821542e5fd11e&#39;</span>
 </pre></div>
 </div>
-<p>请求地址：<a class="reference external" href="http://127.0.0.1:8000/metrics">http://127.0.0.1:8000/metrics</a></p>
+<p>如果是夜莺-Nightingale <a class="reference external" href="https://flashcat.cloud/docs/content/flashcat-monitor/categraf/plugin/prometheus/">参考文档</a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">[[</span><span class="nv">instances.domain</span><span class="p p-Indicator">]]</span>
+<span class="l l-Scalar l-Scalar-Plain">urls = [</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">&quot;http://127.0.0.1:8000/metrics&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">]</span>
+
+<span class="l l-Scalar l-Scalar-Plain">url_label_key = &quot;instance&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">url_label_value = &quot;{{.Host}}&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">headers = [&quot;Authorization&quot;, &quot;Bearer f60c03bfff8bb42dcf6821542e5fd11e&quot;]</span>
+</pre></div>
+</div>
+<p>该配置由<a class="reference external" href="https://github.com/1275788667">&#64;1275788667</a> 提供</p>
 <p>返回数据示例：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># HELP domain_admin this is a domain admin data
 # TYPE domain_admin gauge
@@ -225,10 +240,21 @@ domain_admin{domain=&quot;www.baidu.com&quot;} 37.0
 domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
 </pre></div>
 </div>
+<p>&#64;since v1.5.27 升级为</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># HELP domain_admin this is a domain admin data</span>
+<span class="c1"># TYPE domain_admin gauge 证书列表数据</span>
+<span class="n">domain_admin</span><span class="p">{</span><span class="n">domain</span><span class="o">=</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">,</span><span class="n">group_name</span><span class="o">=</span><span class="s2">&quot;百度系&quot;</span><span class="p">,</span><span class="n">root_domain</span><span class="o">=</span><span class="s2">&quot;baidu.com&quot;</span><span class="p">}</span> <span class="mf">258.0</span>
+<span class="n">domain_admin</span><span class="p">{</span><span class="n">domain</span><span class="o">=</span><span class="s2">&quot;www.163.com&quot;</span><span class="p">,</span><span class="n">group_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">root_domain</span><span class="o">=</span><span class="s2">&quot;163.com&quot;</span><span class="p">}</span> <span class="mf">153.0</span>
+<span class="c1"># HELP domain_info this is a domain info data</span>
+<span class="c1"># TYPE domain_info gauge 域名列表数据</span>
+<span class="n">domain_info</span><span class="p">{</span><span class="n">domain</span><span class="o">=</span><span class="s2">&quot;163.com&quot;</span><span class="p">,</span><span class="n">group_name</span><span class="o">=</span><span class="s2">&quot;百度系&quot;</span><span class="p">}</span> <span class="mf">1392.0</span>
+<span class="n">domain_info</span><span class="p">{</span><span class="n">domain</span><span class="o">=</span><span class="s2">&quot;qq.com&quot;</span><span class="p">,</span><span class="n">group_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">}</span> <span class="mf">3535.0</span>
+</pre></div>
+</div>
 </section>
-<section id="id8">
-<h2>11、部分域名无法查询到信息<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
-<p>已知不支持的域名后缀：<code class="docutils literal notranslate"><span class="pre">.lc</span></code>、<code class="docutils literal notranslate"><span class="pre">.ml</span></code>、<code class="docutils literal notranslate"><span class="pre">.ai</span></code>、<code class="docutils literal notranslate"><span class="pre">.my</span></code>、<code class="docutils literal notranslate"><span class="pre">.ch</span></code>、<code class="docutils literal notranslate"><span class="pre">.edu.cn</span></code></p>
+<section id="id10">
+<h2>11、部分域名无法查询到信息<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
+<p>已知不支持的域名后缀：<code class="docutils literal notranslate"><span class="pre">.lc</span></code>、<code class="docutils literal notranslate"><span class="pre">.ml</span></code>、<code class="docutils literal notranslate"><span class="pre">.ai</span></code>、<code class="docutils literal notranslate"><span class="pre">.my</span></code>、<code class="docutils literal notranslate"><span class="pre">.ch</span></code>、<code class="docutils literal notranslate"><span class="pre">.edu.cn</span></code>、<code class="docutils literal notranslate"><span class="pre">.name</span></code></p>
 </section>
 <section id="ingress">
 <h2>12、获取ingress的域名<a class="headerlink" href="#ingress" title="此标题的永久链接"></a></h2>
@@ -241,13 +267,13 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">kubernetes</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">client</span>
-<span class="kn">import</span> <span class="nn">tldextract</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kubernetes</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">client</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tldextract</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 
 
@@ -256,7 +282,7 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">get_token</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_token</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/api/login&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
@@ -275,7 +301,7 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">add_domain</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_domain</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/api/addDomainInfo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;domain&#39;</span><span class="p">:</span> <span class="n">domain</span>
@@ -293,7 +319,7 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
     <span class="n">config</span><span class="o">.</span><span class="n">load_incluster_config</span><span class="p">()</span>
     <span class="n">kube_api</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">ExtensionsV1beta1Api</span><span class="p">()</span>
     <span class="n">ingresses</span> <span class="o">=</span> <span class="n">kube_api</span><span class="o">.</span><span class="n">list_ingress_for_all_namespaces</span><span class="p">()</span>
@@ -318,16 +344,16 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h2>13、证书监控原理<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
+<section id="id11">
+<h2>13、证书监控原理<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
 <p>第一步：<code class="docutils literal notranslate"><span class="pre">证书数据更新</span></code>：通过实时访问网站，取回网站部署的证书，解析证书签发时间和过期时间，更新到数据库</p>
 <p>第二步：<code class="docutils literal notranslate"><span class="pre">到期通知</span></code>：通过配置好的通知触发条件，查询数据库，如果查询到记录则发送通知，没有查询到数据就忽略</p>
 <blockquote>
 <div><p>如果网站不可访问，可以将 <code class="docutils literal notranslate"><span class="pre">自动更新</span></code> 关闭，不影响到期通知</p>
 </div></blockquote>
 </section>
-<section id="id10">
-<h2>14、域名监控原理<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
+<section id="id12">
+<h2>14、域名监控原理<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h2>
 <p>第一步：<code class="docutils literal notranslate"><span class="pre">域名数据更新</span></code>：通过访问域名服务器，取回域名信息，解析出域名注册时间和过期时间，更新到数据库</p>
 <p>第二步：<code class="docutils literal notranslate"><span class="pre">到期通知</span></code>：通过配置好的通知触发条件，查询数据库，如果查询到记录则发送通知，没有查询到数据就忽略</p>
 <blockquote>
@@ -336,15 +362,15 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
 如果实时查询域名信息，请求过快会被域名信息服务器会拦截，从而查询不到域名信息，触发误报的问题</p>
 </div></blockquote>
 </section>
-<section id="id11">
-<h2>15、提示缺少依赖<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
+<section id="id13">
+<h2>15、提示缺少依赖<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h2>
 <p>可参考网友写的总结文章：</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://blog.csdn.net/u013901725/article/details/132394530">domain-admin域名监控的源码搭建</a></p></li>
 </ul>
 </section>
-<section id="id12">
-<h2>16、主机地址显示错误<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h2>
+<section id="id14">
+<h2>16、主机地址显示错误<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h2>
 <p>由于系统不会主动清空已存在的主机地址，对于CND等证书，可以打开【动态主机】，每次更新数据都会先清空主机IP列表，重新获取数据，避免误报的问题。</p>
 </section>
 <section id="admin">
@@ -354,6 +380,12 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
 </pre></div>
 </div>
 <p>可以重置为：123456</p>
+<p>示例</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">#</span><span class="w"> </span><span class="n">sqlite3</span>
+<span class="n">sqlite</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ATTACH</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s1">&#39;/opt/domain-admin/database/database.db&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mydatabase</span><span class="p">;</span>
+<span class="n">sqlite</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">tb_user</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;$2b$12$c/tJvOYaWxzis4CXSyGN9ua4B7wzor8j9WrGsgV/2pdJnsrAMJxiK&quot;</span><span class="w"> </span><span class="p">;</span>
+</pre></div>
+</div>
 </section>
 <section id="database-is-locked">
 <h2>18、database is locked<a class="headerlink" href="#database-is-locked" title="此标题的永久链接"></a></h2>
@@ -365,6 +397,12 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
 <h2>19、Python2.7 依赖问题<a class="headerlink" href="#python2-7" title="此标题的永久链接"></a></h2>
 <p>可以手动安装适合Python2.7 的依赖版本，也可以使用整理好的依赖文件</p>
 <p><a class="reference external" href="https://github.com/mouday/domain-admin/blob/master/requirements/production-2.7.txt">production-2.7.txt</a></p>
+</section>
+<section id="grafana">
+<h2>20、grafana 的展示模版<a class="headerlink" href="#grafana" title="此标题的永久链接"></a></h2>
+<p>可参考群友 友志 提供的模板</p>
+<p><a class="reference external" href="https://grafana.com/grafana/dashboards/14605-domain-exporter-for-prometheus/">https://grafana.com/grafana/dashboards/14605-domain-exporter-for-prometheus/</a></p>
+<p><a class="reference external" href="https://grafana.com/grafana/dashboards/13924-9116-domain/">https://grafana.com/grafana/dashboards/13924-9116-domain/</a></p>
 </section>
 </section>
 
@@ -379,7 +417,7 @@ domain_admin{domain=&quot;www.taobao.com&quot;} 37.0
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2023, Peng Shiyu.</p>
+    <p>&#169; 版权所有 2023, Peng Shiyu。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
